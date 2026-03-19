@@ -4,9 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>March Madness Loader</title>
+
 <style>
-  body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: Arial, sans-serif; }
-  
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Loader */
   #loader {
     position: fixed;
     inset: 0;
@@ -20,37 +28,142 @@
     transition: opacity 0.6s ease, visibility 0.6s;
   }
 
-  #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  #loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
 
   .bounce { animation: bounce 1s infinite ease-in-out; }
-  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-40px); } }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-40px); }
+  }
 
   .ball {
-    width: 80px; height: 80px; border-radius: 50%; background: #ff8c00;
-    position: relative; animation: spin 1.2s linear infinite;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #ff8c00;
+    position: relative;
+    animation: spin 1.2s linear infinite;
     box-shadow: inset -8px -8px 0 rgba(0,0,0,0.2);
     border: 2px solid #000;
   }
 
-  .ball::before { content: ""; position: absolute; width: 100%; height: 4px; top: 50%; background: black; transform: translateY(-50%); }
-  .ball::after { content: ""; position: absolute; height: 100%; width: 4px; left: 50%; background: black; transform: translateX(-50%); }
+  .ball::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    top: 50%;
+    background: black;
+    transform: translateY(-50%);
+  }
 
-  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  .ball::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 4px;
+    left: 50%;
+    background: black;
+    transform: translateX(-50%);
+  }
 
-  .ncaa-logo { margin-top: 25px; width: 100px; }
-  .text { margin-top: 20px; font-size: 24px; font-weight: bold; }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
-  /* Full screen iframe */
+  .ncaa-logo {
+    margin-top: 25px;
+    width: 100px;
+  }
+
+  .text {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
   iframe {
     width: 100%;
     height: 100vh;
     border: none;
     display: block;
   }
+
+  /* Google Sites Block Screen (same theme) */
+  #iframeBlock {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #0b3d91, #c8102e);
+    color: white;
+    display: none;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  #iframeBlock h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  #iframeBlock p {
+    font-size: 18px;
+    margin-bottom: 25px;
+    opacity: 0.9;
+  }
+
+  #iframeBlock button {
+    padding: 12px 24px;
+    font-size: 18px;
+    background: #ff8c00;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  #iframeBlock button:hover {
+    background: #e67600;
+  }
+
+  #tryAnyway {
+    margin-top: 20px;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  #tryAnyway:hover {
+    opacity: 1;
+  }
 </style>
 </head>
+
 <body>
 
+<!-- BLOCK SCREEN -->
+<div id="iframeBlock">
+  <div class="bounce">
+    <div class="ball"></div>
+  </div>
+  <h1>This won’t work here</h1>
+  <p>Google Sites blocks parts of the stream.<br>Open in a new tab for full access.</p>
+  <button onclick="openStandalone()">Watch Here</button>
+  <div id="tryAnyway" onclick="continueAnyway()">try here anyway</div>
+</div>
+
+<!-- LOADER -->
 <div id="loader">
   <div class="bounce">
     <div class="ball"></div>
@@ -59,37 +172,58 @@
   <img class="ncaa-logo" src="https://i.ibb.co/0jhk3s02/image.png" alt="NCAA Logo">
 </div>
 
-<!-- ADDED SANDBOX ATTRIBUTE BELOW -->
+<!-- IFRAME -->
 <iframe 
   src="https://www.ncaa.com/march-madness-live/multigame" 
-  id="frame" 
-  allow="autoplay; fullscreen; keyboard; focus-without-user-activation; encrypted-media; picture-in-picture"
+  id="frame"
+  allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
   sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-storage-access-by-user-activation"
-
 ></iframe>
-
-  <p>Your browser does not support iframes. <a href="ncaa.com">Click here to watch</a></p>
-</iframe>
 
 <script>
   const loader = document.getElementById('loader');
   const iframe = document.getElementById('frame');
-  const MIN_TIME = 3000; // Reduced for better UX
+  const block = document.getElementById('iframeBlock');
+
+  const MIN_TIME = 3000;
   const MAX_TIME = 10000;
   let startTime = Date.now();
+
+  function isGoogleSites() {
+    try {
+      return window.top.location.hostname.includes("sites.google.com");
+    } catch (e) {
+      // Cross-origin → likely embedded (Google Sites or similar)
+      return document.referrer.includes("sites.google.com");
+    }
+  }
+
+  if (isGoogleSites()) {
+    block.style.display = "flex";
+    loader.style.display = "none";
+    iframe.style.display = "none";
+  }
+
+  function openStandalone() {
+    window.open("https://owenfun07.github.io/march-madness/", "_blank");
+  }
+
+  function continueAnyway() {
+    block.style.display = "none";
+    loader.style.display = "flex";
+    iframe.style.display = "block";
+  }
 
   function hideLoader() {
     loader.classList.add('hidden');
   }
 
-  // Hide loader when iframe finishes internal tasks
   iframe.addEventListener('load', () => {
     const elapsed = Date.now() - startTime;
     const remaining = Math.max(0, MIN_TIME - elapsed);
     setTimeout(hideLoader, remaining);
   });
 
-  // Safety timeout in case the iframe is blocked or slow
   setTimeout(hideLoader, MAX_TIME);
 </script>
 
