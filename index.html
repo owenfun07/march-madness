@@ -1,0 +1,593 @@
+if a site is not working due to google site sandboxing, how can you fix that
+"Google site sandboxing" usually refers to one of two things: a technical issue where a site built on Google Sites isn't displaying correctly, or the SEO "Sandbox" effect where a new website struggles to rank in search results. 
+1. Fixing Google Sites Display or Loading Issues 
+If you are using the Google Sites platform and your site is not working or "sandboxed" (restricted), try these technical fixes:
+Check Publishing Settings: Ensure your site is set to "Public" rather than "Restricted." In the Google Sites editor, click the Share icon and verify that the "Published site" setting allows anyone to view it.
+Troubleshoot Browser Extensions: Open your site in an Incognito window. If it works there, a browser extension like an ad blocker or Grammarly might be interfering with the site's scripts.
+Verify Custom Domain DNS: If your custom domain isn't loading, check your DNS settings. Ensure the CNAME record for "www" is correctly pointing to ghs.googlehosted.com and that any old DNS records from previous hosts are removed.
+Unpublish and Republish: Sometimes a simple refresh of the publishing state resolves internal glitches.
+Check Chrome Sandbox Settings: If "sandboxing" refers to a browser-level security feature blocking the site, you can manage Privacy Sandbox settings in Chrome under Settings > Privacy and security > Ad privacy. 
+Google Help
+Google Help
+ +6
+2. Getting Out of the SEO "Sandbox"
+If your site is "sandboxed" in search results (indexed but not ranking), this is a trust-evaluation phase that typically lasts 3 to 6 months. You can speed up the process by: 
+YouTube
+YouTube
+ +1
+Indexing Immediately: Register your site on the Google Search Console and submit an XML sitemap to ensure Google has crawled all your pages.
+Targeting Low-Competition Keywords: Focus on "long-tail" keywords that are easier to rank for initially. Ranking for these builds the "user signals" Google needs to see your site is valuable.
+Building Quality Backlinks: Avoid "spammy" link-building schemes. Focus on getting a few high-quality, natural links from established sites to build authority.
+Prioritizing Content Quality: Google often sandboxes sites with "thin" or unoriginal content. Regularly publishing high-quality, unique articles helps prove your site is a serious resource. 
+Reddit
+Reddit
+ +5
+Is your site completely failing to load in a browser, or is it just not appearing in Google search results?
+AI responses may include mistakes. Learn more
+
+
+
+
+
+undefined
+undefined
+undefined
+17 sites
+Troubleshooting - Sites Community - Google Help
+Nov 1, 2023 — Troubleshooting. ... When Google Sites is not working as expected, try the following troubleshooting steps. ... Try these things f...
+
+Google Help
+
+What is Google Sandbox and how should I get out of it? : r/SEO
+Dec 14, 2021 — * Redleader829. • 4y ago. For new websites, Google test new articles (with zero backlinks) for about 8 months. Before they determi...
+
+Reddit
+Why won't my custom domain work for sites? - Google Help
+May 27, 2024 — The "DNS_PROBE_FINISHED_NXDOMAIN" error indicates that your browser can't find the domain associated with your custom URL. Here ar...
+
+Google Help
+
+Show all
+I mean I am embedding a site and it is not working because of the iframe sandboxing
+When an embedded site fails because of iframe sandboxing, it is usually because the sandbox attribute on the <iframe> tag is either empty or missing the specific permissions needed for the site to function. By default, a sandboxed iframe blocks nearly all interactive features to protect the host site. 
+Privacy Sandbox
+Privacy Sandbox
+ +3
+1. Update the Sandbox Attribute 
+If you have access to the embed code, you can fix the issue by explicitly adding the necessary "allow" keywords to the sandbox attribute. 
+Chrome for Developers
+Chrome for Developers
+ +1
+To enable scripts: Add allow-scripts.
+To allow forms: Add allow-forms.
+To allow pop-ups: Add allow-popups.
+To allow same-origin access (cookies/storage): Add allow-same-origin. 
+Google Cloud
+Google Cloud
+ +4
+Example of a fully-functional embed code:
+html
+<iframe src="https://example.com" 
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups" 
+        style="border:none;" width="100%" height="500">
+</iframe>
+Use code with caution.
+
+2. Common Causes of Failure
+Mixed Content (HTTP vs HTTPS): Most modern platforms, including Google Apps Script, require embedded resources to be loaded over HTTPS. If your source URL starts with http://, the browser will often block it entirely.
+Content Security Policy (CSP): Some websites explicitly forbid being embedded in an iframe for security reasons (called "frame-busting"). If the site owner has set an X-Frame-Options: DENY or SAMEORIGIN header, you cannot bypass the sandbox through code alone.
+Google Sites "Embed Code" vs "Embed URL": If you are using Google Sites, try using the "Embed Code" option instead of just pasting a URL. This gives you direct control over the <iframe> tag and its sandbox attributes. 
+Google for Developers
+Google for Developers
+ +5
+3. Google Apps Script Specifics
+If you are developing a web app via Google Apps Script, ensure you are using the required IFRAME sandbox mode. You may need to: 
+Google for Developers
+Google for Developers
+ +1
+Set link targets to _top or _blank so they can "escape" the frame.
+Use google.script.host.origin if your app interacts with other Google services like the Google Picker. 
+Google for Developers
+Google for Developers
+ +1
+Which platform are you using to embed the site (e.g., WordPress, Google Sites, or a custom HTML file)?
+AI responses may include mistakes. Learn more
+
+
+
+
+
+undefined
+undefined
+undefined
+13 sites
+Securely embed content on your site | Blog - Chrome for Developers
+Apr 13, 2022 — Added security with the sandbox attribute. If malicious content is deployed in an iframe, it's possible that unintended actions (s...
+
+Chrome for Developers
+
+Knowledge: Iframe Content is Not Displaying
+If you have followed the steps to add an Iframe, and you are not seeing a preview of the source URL when you save your iframe cont...
+
+Salesforce
+
+New sandbox allow-same-site-none-cookies value from ...
+Mar 10, 2025 — Natalia Markoborodova. From Chrome 135, you can use the new sandbox value: allow-same-site-none-cookies . When this policy is spec...
+
+Privacy Sandbox
+
+Show all
+can you fix this code, <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>March Madness Loader</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  #loader {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #0b3d91, #c8102e);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    z-index: 9999;
+    transition: opacity 0.6s ease, visibility 0.6s;
+  }
+
+  #loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Bounce animation */
+  .bounce {
+    animation: bounce 1s infinite ease-in-out;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-40px); }
+  }
+
+  /* Basketball */
+  .ball {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: orange;
+    position: relative;
+    animation: spin 1.2s linear infinite;
+    box-shadow: inset -8px -8px 0 rgba(0,0,0,0.2);
+  }
+
+  .ball::before,
+  .ball::after {
+    content: "";
+    position: absolute;
+    background: black;
+  }
+
+  .ball::before {
+    width: 100%;
+    height: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .ball::after {
+    height: 100%;
+    width: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* NCAA image */
+  .ncaa-logo {
+    margin-top: 25px;
+    width: 100px;
+  }
+
+  .text {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100vh;
+    border: none;
+  }
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="bounce">
+    <div class="ball"></div>
+  </div>
+
+  <div class="text">Loading the Madness...</div>
+
+  <img class="ncaa-logo"
+       src="https://i.ibb.co/0jhk3s02/image.png"
+       alt="NCAA Logo">
+</div>
+
+<iframe src="https://www.ncaa.com/march-madness-live/multigame" id="frame" allow="autoplay; fullscreen; keyboard; focus-without-user-activation"></iframe>
+
+<script>
+  const loader = document.getElementById('loader');
+  const iframe = document.getElementById('frame');
+
+  const MIN_TIME = 5000;
+  const MAX_TIME = 15000;
+
+  let startTime = Date.now();
+  let iframeLoaded = false;
+
+  function tryHideLoader() {
+    const elapsed = Date.now() - startTime;
+    if (elapsed >= MIN_TIME && iframeLoaded) {
+      hideLoader();
+    }
+  }
+
+  function hideLoader() {
+    loader.classList.add('hidden');
+  }
+
+  iframe.addEventListener('load', () => {
+    iframeLoaded = true;
+    tryHideLoader();
+  });
+
+  setTimeout(tryHideLoader, MIN_TIME);
+  setTimeout(hideLoader, MAX_TIME);
+</script>
+
+</body>
+</html>
+The main reason your code is failing is that ncaa.com uses a security header called X-Frame-Options: SAMEORIGIN. This explicitly tells the browser: "Do not allow this site to be embedded unless the parent site is also ncaa.com."
+No amount of "sandboxing" code can force a site to appear if they have blocked embedding. However, if you are seeing a "Sandboxing" error specifically, it is because your environment (like a Google Site or an iframe-based builder) is stripping away the permissions the NCAA player needs to run its scripts.
+Here is the fixed code with the necessary sandbox attributes and a fallback link in case the embed is blocked:
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>March Madness Loader</title>
+<style>
+  body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: Arial, sans-serif; }
+  
+  #loader {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #0b3d91, #c8102e);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    z-index: 9999;
+    transition: opacity 0.6s ease, visibility 0.6s;
+  }
+
+  #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+  .bounce { animation: bounce 1s infinite ease-in-out; }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-40px); } }
+
+  .ball {
+    width: 80px; height: 80px; border-radius: 50%; background: #ff8c00;
+    position: relative; animation: spin 1.2s linear infinite;
+    box-shadow: inset -8px -8px 0 rgba(0,0,0,0.2);
+    border: 2px solid #000;
+  }
+
+  .ball::before { content: ""; position: absolute; width: 100%; height: 4px; top: 50%; background: black; transform: translateY(-50%); }
+  .ball::after { content: ""; position: absolute; height: 100%; width: 4px; left: 50%; background: black; transform: translateX(-50%); }
+
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+  .ncaa-logo { margin-top: 25px; width: 100px; }
+  .text { margin-top: 20px; font-size: 24px; font-weight: bold; }
+
+  /* Full screen iframe */
+  iframe {
+    width: 100%;
+    height: 100vh;
+    border: none;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="bounce">
+    <div class="ball"></div>
+  </div>
+  <div class="text">Loading the Madness...</div>
+  <img class="ncaa-logo" src="https://i.ibb.co/0jhk3s02/image.png" alt="NCAA Logo">
+</div>
+
+<!-- ADDED SANDBOX ATTRIBUTE BELOW -->
+<iframe 
+  src="https://www.ncaa.com/march-madness-live/multigame" 
+  id="frame" 
+  allow="autoplay; fullscreen; keyboard; focus-without-user-activation"
+  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"
+>
+  <p>Your browser does not support iframes. <a href="https://www.ncaa.com/march-madness-live/multigame">Click here to watch</a></p>
+</iframe>
+
+<script>
+  const loader = document.getElementById('loader');
+  const iframe = document.getElementById('frame');
+  const MIN_TIME = 3000; // Reduced for better UX
+  const MAX_TIME = 10000;
+  let startTime = Date.now();
+
+  function hideLoader() {
+    loader.classList.add('hidden');
+  }
+
+  // Hide loader when iframe finishes internal tasks
+  iframe.addEventListener('load', () => {
+    const elapsed = Date.now() - startTime;
+    const remaining = Math.max(0, MIN_TIME - elapsed);
+    setTimeout(hideLoader, remaining);
+  });
+
+  // Safety timeout in case the iframe is blocked or slow
+  setTimeout(hideLoader, MAX_TIME);
+</script>
+
+</body>
+</html>
+Use code with caution.
+
+Why this might still show a blank screen:
+Hard Block: NCAA often blocks embedding on non-official domains. If the screen is white and the console says Refused to display... in a frame because it set 'X-Frame-Options' to 'sameorigin', the only fix is to use a direct link instead of an iframe.
+Google Sites Limitation: If you are pasting this into a "Google Sites" embed box, Google wraps your code in its own sandboxed iframe. This "double-sandboxing" often breaks video players.
+Are you seeing a specific error message in the "Loading the Madness" area, or just a gray/white box?
+AI responses may include mistakes. Learn more
+
+
+
+
+the iframe I am loading will not work if there is any ad blocking content which I assume is the site getting that mixed up with the Google site iframe
+You’ve hit the nail on the head. Most high-profile sports streamers (like NCAA/Turner) use heartbeat scripts and ad-trackers to verify your session. When Google Sites wraps your code in its own sandboxed iframe (custom-preview-script.googleusercontent.com), those scripts often break, and the site assumes you are using an ad-blocker.
+Since Google Sites forces its own sandbox on you, you cannot "disable" it. However, you can try these three workarounds to trick the player into loading:
+1. Add "allow-downloads" and "allow-modals"
+Sometimes the player tries to trigger a small background process (like a tracking cookie check) that Google's sandbox blocks. Update your iframe tag in your code to include these extra permissions:
+html
+<iframe 
+  src="https://www.ncaa.com" 
+  id="frame" 
+  allow="autoplay; fullscreen; keyboard; focus-without-user-activation; encrypted-media; picture-in-picture"
+  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-downloads allow-modals"
+></iframe>
+Use code with caution.
+
+2. The "User-Initiated" Fix
+Many video players refuse to load inside a sandbox unless there is a physical click from the user inside that frame.
+Change your code so the iframe doesn't have a src initially.
+Put a "Watch Now" button in the middle of your basketball animation.
+When clicked, the button sets iframe.src = "https://www.ncaa.com...". This "bless"es the session in some browsers and bypasses "ad-blocker detected" errors.
+3. Use the "Embed URL" instead of "Embed Code"
+Google Sites handles the Embed URL option differently than the Embed Code (HTML) option.
+In Google Sites, click Embed.
+Instead of "Embed Code," select By URL.
+Paste the NCAA link directly.
+Google will try to generate a "Preview" or "Whole Page." Choose Whole Page.
+This sometimes uses a slightly less restrictive container than the custom HTML block.
+4. Check for "Incognito" Conflict
+If you are testing while logged into Google, your own browser's tracking protection might be doubling down on the Google Sites sandbox. Try viewing your published site in an Incognito window with all extensions disabled.
+Does the player show an actual "Ad Blocker Detected" message, or does the loading spinner just spin forever?
+AI responses may include mistakes. Learn more
+
+
+
+
+it says, Video: Video not available
+Video currently not available. Please disable all ad blocking/content filtering extensions and reload the page. If the issue persists, try another browser.
+(M12 - CM05MD502)
+The error M12 - CM05MD502 is a specific security failure where the NCAA player detects that its "heartbeat" or "ad-verification" scripts are being blocked. 
+NCAA.com
+NCAA.com
+ +1
+In a Google Site, this happens because Google's mandatory sandbox (which wraps your code) prevents the player from "seeing" your browser clearly, making it think an ad-blocker is active even if you don't have one installed. 
+Google Help
+Google Help
+ +1
+How to Force it to Work
+Since you cannot disable the Google Sites sandbox, you must change how the browser handles the iframe's permissions:
+Add allow-storage-access-by-user-activation:
+Modern browsers block "third-party cookies" inside sandboxed iframes. The NCAA player needs these cookies to verify you aren't blocking ads. Update your sandbox attribute to this exact string:
+html
+sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-storage-access-by-user-activation"
+Use code with caution.
+
+Enable "Intrusive Ads" for your Google Site:
+Chrome sometimes has a built-in "Intrusive Ad" blocker that targets Google-hosted subdomains.
+Visit your published site.
+Click the Lock icon (or "View site information") to the left of the URL.
+Go to Site settings.
+Find Intrusive ads and set it to Allow.
+Hard Refresh (Bypass Cache):
+NCAA's scripts often fail if an old "blocked" state is cached. After updating your code, use Ctrl + F5 (Windows) or Cmd + Shift + R (Mac) to force the browser to reload the scripts from scratch.
+Disable "Tracking Protection":
+If you use Firefox or Brave, their built-in "Shields" or "Enhanced Tracking Protection" will block the NCAA player inside a Google Site every time. You must turn off these protections specifically for your site URL. 
+Google Help
+Google Help
+ +3
+Why "Embed Code" often fails for Video
+If the above fails, it is because Google's custom-preview-script.googleusercontent.com domain is on many "Privacy Lists" used by browsers. The only reliable workaround is to use the "Embed by URL" feature in Google Sites instead of "Embed Code," as it uses a slightly different container that sometimes avoids this specific "ad-block" detection.
+Does the error change to a login prompt, or do you still see the "disable ad blocking" message after these changes?
+AI responses may include mistakes. Learn more
+
+
+
+
+
+undefined
+undefined
+undefined
+7 sites
+Visit a site by turning off Chrome's ad blocker - Computer - Google Help
+Turn off the ad blocker * On your computer, open Chrome. * At the top right, select More. Settings. * Select Privacy and security.
+
+Google Help
+How do I access live video that is not working?
+Your live video pass has expired. • Click Select TV Provider and login. You need [network] as part of your TV package to watch thi...
+
+NCAA.com
+Error code when trying to embed HTML code in site - Google Help
+Apr 17, 2019 — *If you have any ad blockers installed please disable as we see issues with them frequently. If this won't help in your case, plea...
+
+Google Help
+Show all
+I updated the iframe but that option in settings does not exist, check again
+If the "Intrusive Ads" setting is missing, it is likely because Chrome has relocated or renamed these options in recent updates. The NCAA player's "M12" error occurs because the site is detecting that its tracking and ad scripts are being blocked by the Google Sites sandbox, which acts as a "proxy" that interferes with how the player verifies your browser. 
+NCAA.com
+NCAA.com
+ +1
+Since you cannot change the Google Sites infrastructure, use these verified methods to bypass the block:
+1. The Correct Chrome Site Settings (2025 Update)
+If the previous path didn't work, follow this specific route to whiten the site:
+Open your published Google Site.
+Click the Lock icon (or "Tune" icon) to the left of the URL in the address bar.
+Click Site settings.
+In the list of permissions, look for Ads or Intrusive ads.
+If you see it, change it to Allow.
+Crucial Step: Also find Pop-ups and redirects in this same list and set it to Allow.
+Reload your page. 
+Google Help
+Google Help
+ +3
+2. Bypass "Third-Party Cookie" Blocking 
+The "M12" error is often triggered because Google Sites loads the embed from a different domain (googleusercontent.com), which browsers now block by default to protect privacy.
+In Chrome, go to chrome://settings/cookies.
+Select "Allow third-party cookies" temporarily to see if the video loads.
+If it works, you can add an exception for [*.]ncaa.com and [*.]googleusercontent.com instead of allowing all cookies globally. 
+NCAA.com
+NCAA.com
+ +1
+3. Add the "Escape" Sandbox Flag
+Update your code's sandbox attribute to include a flag that specifically allows the player's internal ad-popups to "breathe" outside the frame:
+html
+sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-storage-access-by-user-activation"
+Use code with caution.
+
+The allow-popups-to-escape-sandbox flag is often required for sports players that need to open verification windows. 
+Stack Overflow
+Stack Overflow
+ +1
+4. Use "Embed by URL" Instead of "Embed Code" 
+If your custom HTML code still fails, Google's "Embed Code" tool is likely too restrictive for this specific video player.
+Go to your Google Site editor.
+Click Embed > By URL.
+Paste: https://www.ncaa.com.
+Choose Whole page.
+This method uses a different internal container that often has better compatibility with external video scripts than the custom HTML block. 
+Airtable Community
+Airtable Community
+ +1
+Does the video player now show a "Sign In" button, or are you still stuck on the "Disable Ad Blocker" message?
+AI responses may include mistakes. Learn more
+
+
+
+
+
+undefined
+undefined
+undefined
+12 sites
+How do I access live video that is not working?
+• Check your internet connection or speed, clear your cache and then close the browser, and/or try a different browser. Live radio...
+
+NCAA.com
+Visit a site by turning off Chrome's ad blocker - Computer - Google Help
+Turn off the ad blocker. You can change your settings to allow ads on all sites. * On your computer, open Chrome. * At the top rig...
+
+Google Help
+Embed issue on Google Site - Airtable Community
+Mar 23, 2020 — 2 replies. Oldest first. J. +18. Jeremy_Oglesby. 1691 replies. 5 years ago. March 24, 2020. It's been a really long time since I u...
+
+Airtable Community
+
+Show all
+there is no site settings option
+If the "Site Settings" option is missing from the address bar icon, it's likely because Chrome's updated interface has nested it or the site is being viewed in a specific mode (like full-screen). You can still access these permissions and fix the M12 - CM05MD502 error by using direct URLs or the main settings menu. 
+1. Access Site Settings via Direct URL
+Instead of clicking the lock icon, you can force Chrome to open the settings for your specific Google Site:
+Type chrome://settings/content/all into your address bar and press Enter.
+In the search box at the top right, type google.com or the specific subdomain for your site (e.g., sites.google.com).
+Click on your site in the list to open its specific permissions.
+Find Ads and Pop-ups and redirects and set them both to Allow. 
+Google Help
+Google Help
+ +2
+2. Whitelist the NCAA Domain for Cookies 
+The NCAA player often fails because it cannot set "Third-Party Cookies" while inside the Google Sites sandbox. 
+NCAA.com
+NCAA.com
+ +1
+Go to chrome://settings/cookies.
+Scroll down to "Sites allowed to use third-party cookies" and click Add.
+Enter [*.]ncaa.com and click Add.
+Repeat the process and add [*.]googleusercontent.com (this is the domain Google uses to host your embedded code). 
+Google Help
+Google Help
+ +1
+3. Clear the Site's Specific Cache 
+If the "M12" error persists, the player may have cached a "blocked" state.
+While on your site, press Ctrl + Shift + J (Windows) or Cmd + Option + I (Mac) to open Developer Tools.
+Right-click the Refresh button next to the address bar.
+Select Empty Cache and Hard Reload. 
+4. Temporary "Incognito" Test
+Open your published site URL in an Incognito window (Ctrl + Shift + N). If it works there, a browser extension you have installed (like a generic ad-blocker or a "privacy" tool) is conflicting with the Google Sites sandbox and the NCAA player. 
+Google Help
+Google Help
+ +2
+Did the video player start loading after whitelisting the NCAA domain in your cookie settings?
+AI responses may include mistakes. Learn more
+
+
+
+
+
+undefined
+undefined
+undefined
+12 sites
+Delete, allow, and manage cookies in Chrome - Google Help
+Delete specific cookies * On your computer, open Chrome. * At the top right, select More Settings . * Select Privacy and security.
+
+Google Help
+Change site settings permissions - Google Chrome Help
+Change settings for all sites * On your computer, open Chrome. * At the top right, select More. Settings. * Select Privacy and sec...
+
+Google Help
+How do I enable third-party cookies in my browser?
+Feb 25, 2026 — Enable Third Party Cookies in Chrome * Open Google Chrome. * From the top right, click the More icon (three vertical dots)and sele...
+
+Instructure Community
+Show all
+still not working, will putting it in a GitHub page and then embedding that page work?
